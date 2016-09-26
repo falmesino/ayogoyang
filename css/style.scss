@@ -86,21 +86,28 @@ html, body
             margin: 0 auto;
             padding: 0;
             line-height: $game_ui_timing-bar_size - (4px*2);
-            left: 8px;
+            left: 0;
+            
+            &::before
+            {
+                content:attr(data-pos);
+                position: absolute;
+                top: -28px;
+                left: 0;
+            }
         }
         
-        &::before
+        
+        .game-controls__timing-bar__hitbox
         {
-            content: "";
             position: absolute;
             top: 50%;
             left: 75%;
             transform: translateY(-50%);
-            width: 32px;
-            height: 100%;
+            width: $game_ui_timing-bar_size;
+            height: $game_ui_timing-bar_size;
             background: rgba(255, 255, 255, 0.4);
         }
-        
     }
     
     &__arrows
