@@ -50,7 +50,6 @@ $(function(){
         var tbRail = $('.game-controls__timing-bar');
         var tbBullet = $('.game-controls__timing-bar__bullet');
         
-    
         var hitbox = $('.game-controls__timing-bar__hitbox');
         var hitboxWidth = hitbox.outerWidth();
         var hitboxPosition = hitbox.position().left;
@@ -61,8 +60,6 @@ $(function(){
             duration: 8000,
             easing: 'linear',
             step: function(now, fx){
-                // console.log(now + '/' + hitboxPosition);
-                // console.log(fx);
                 $(this).attr('data-pos', Math.ceil(now));
             },
             complete: function(){
@@ -100,6 +97,7 @@ $(function(){
      * Randomize arrows
      */
     $('#gd-randomize').click(function(e){
+        reset();
         randomize();
     });
     
@@ -109,12 +107,24 @@ $(function(){
     
     init();
     
+    function register_input(string){
+        container_user.push(string);
+        keyPos++;
+        if(container[keyPos-1] === container_user[keyPos-1]){
+            var arrowItem = $('.game-controls__arrows__items > li:nth-child(' + keyPos + ')');
+            if(arrowItem.length > 0){
+                arrowItem.find('span').addClass('gca--pressed');
+                // SUCCESS
+            }
+        }else{
+            reset();
+            // FAILED
+        }
+    }
     
     /**
      * KeyPress
      */
-    
-    
     
     $(document).keydown(function(e){
         
@@ -124,40 +134,17 @@ $(function(){
                     console.log('space');
                     break;
                 case 37:
-                    container_user.push('left');
-                    keyPos++;
+                    register_input('left');
                     break;
                 case 38:
-                    container_user.push('up');
-                    keyPos++;
+                    register_input('up');
                     break;
                 case 39:
-                    container_user.push('right');
-                    keyPos++;
+                    register_input('right');
                     break;
                 case 40:
-                    container_user.push('down');
-                    keyPos++;
+                    register_input('down');
                     break;
-            }
-            
-            
-            //console.log(container);
-            //console.log(container_user);
-            //console.log(keyPos + '/' + level);
-            
-            console.log(container[keyPos-1] + ' = ' + container_user[keyPos-1]);
-            
-            if(container[keyPos-1] === container_user[keyPos-1]){
-                console.log('Compare succeed');
-                var arrowItem = $('.game-controls__arrows__items > li:nth-child(' + keyPos + ')');
-                if(arrowItem.length > 0){
-                    arrowItem.find('span').addClass('gca--pressed');
-                }
-                console.log(arrowItem);
-            }else{
-                console.log('Compare failed');
-                reset();
             }
             
         }else{
