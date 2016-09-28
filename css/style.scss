@@ -28,7 +28,8 @@ html, body
     height: 100%;
     position: relative;
     color: white;
-    background: #111;
+    //background: #111;
+    overflow: hidden;
     
 }
 
@@ -227,4 +228,17 @@ html, body
         }
         
     }
+}
+
+#video
+{
+    position: relative;
+    background: transparent;
+}
+
+.ytplayer-container
+{
+    position: absolute;
+    top: 0;
+    z-index: -1;
 }
